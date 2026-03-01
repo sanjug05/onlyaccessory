@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyAccessory | Crafted for the Few</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #161616;
+            --accent: #c5a059; /* Muted Gold */
+            --text-main: #e5e5e5;
+            --text-dim: #888888;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
+
+        nav.scrolled {
+            padding: 20px 60px;
+            background: rgba(15, 15, 15, 0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 3px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .inquiry-link {
+            color: var(--accent);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .inquiry-link:hover {
+            opacity: 0.7;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(15,15,15,0.2), rgba(15,15,15,1)), 
+                        url('https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--white);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s forwards 0.5s;
+        }
+
+        .hero p {
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            font-size: 12px;
+            color: var(--accent);
+            opacity: 0;
+            animation: fadeInUp 1.5s forwards 0.8s;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Philosophy --- */
+        .philosophy {
+            padding: 160px 20px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .philosophy h2 {
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--white);
+            line-height: 1.4;
+        }
+
+        .section-label {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 5px;
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        /* --- Curator Intro --- */
+        .curator-intro {
+            padding: 140px 20px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .curator-intro h2 {
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 25px;
+        }
+
+        .curator-intro p {
+            font-size: 15px;
+            color: var(--text-dim);
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- Drop Header --- */
+        .drop-header {
+            padding: 100px 20px 60px;
+            text-align: center;
+        }
+
+        .drop-divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(197,160,89,0.4);
+            margin: 25px auto 0;
+        }
+
+        /* --- Product Grid --- */
+        .collection-grid {
+            padding: 0 60px 120px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-auto-flow: dense;
+            gap: 80px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .product-card:nth-child(1) {
+            grid-column: 1 / -1;
+            margin-bottom: 60px;
+        }
+
+        .product-card:nth-child(2) {
+            grid-column: span 2;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background-color: var(--card-bg);
+            overflow: hidden;
+            margin-bottom: 25px;
+            position: relative;
+            transition: box-shadow 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .product-card:nth-child(1) .product-image {
+            aspect-ratio: 16/9;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .product-card:hover .product-image {
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .product-card:hover .product-image img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+
+        .product-category {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+        }
+
+        .scarcity-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0,0,0,0.6);
+            color: var(--accent);
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            border: 1px solid rgba(197,160,89,0.4);
+            z-index: 5;
+        }
+
+        .featured-label {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .product-story {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-top: 10px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .consult-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 22px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .consult-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .product-price {
+            font-family: 'Inter', sans-serif;
+            color: var(--accent);
+            font-size: 14px;
+            transition: letter-spacing 0.5s ease;
+        }
+
+        .product-card:hover .product-price {
+            letter-spacing: 1px;
+        }
+
+        /* --- Scarcity Banner --- */
+        .banner {
+            background-color: var(--white);
+            color: #000;
+            padding: 100px 20px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .banner h2 {
+            font-size: 3.5rem;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+
+        .banner p {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* --- Authority Sections --- */
+        .private-client {
+            padding: 160px 20px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .private-client h2 {
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 25px;
+        }
+
+        .private-client p {
+            font-size: 15px;
+            color: var(--text-dim);
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .founder-note {
+            padding: 140px 20px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .founder-note h2 {
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 25px;
+        }
+
+        .founder-note p {
+            font-size: 15px;
+            color: var(--text-dim);
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .founder-signature {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-top: 30px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 120px 60px 60px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 100px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-desc {
+            color: var(--text-dim);
+            max-width: 300px;
+            font-size: 14px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+            .collection-grid { padding: 0 20px; }
+            .banner h2 { font-size: 2rem; }
+            
+            .product-card:nth-child(1),
+            .product-card:nth-child(2) {
+                grid-column: 1 / -1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="#" class="logo">ONLYACCESSORY</a>
+        <div class="nav-links">
+            <a href="#drop-section">Drop I</a>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="inquiry-link">Private Inquiry</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Crafted for the Few.</h1>
+        <p>Globally curated luxury accessories</p>
+    </section>
+
+    <section class="philosophy">
+        <span class="section-label">Our Philosophy</span>
+        <h2>“We curate rare, refined accessories from independent global ateliers, chosen for craftsmanship, integrity, and timeless design.”</h2>
+    </section>
+
+    <section class="curator-intro">
+        <span class="section-label">From the Curator</span>
+        <h2>Objects chosen not for trend — but for permanence.</h2>
+        <p>
+            Each piece presented here reflects a standard of craftsmanship and restraint. 
+            I curate selectively, prioritizing longevity, integrity, and design that endures.
+        </p>
+    </section>
+
+    <section id="drop-section" class="drop-header">
+        <span class="section-label">Curated Drop I — 2026</span>
+        <div class="drop-divider"></div>
+    </section>
+
+    <section class="collection-grid">
+        <a href="#" class="product-card">
+            <div class="product-image">
+                <span class="scarcity-badge">Drop I</span>
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000" alt="Watch">
+            </div>
+            <div class="product-info">
+                <div>
+                    <span class="featured-label">Featured Piece</span>
+                    <h3>Obsidian Chronograph</h3>
+                    <p class="product-category">Timepiece</p>
+                    <p class="product-story">
+                        Limited to 75 pieces worldwide. Hand assembled in Geneva with a brushed titanium case and ceramic bezel.
+                    </p>
+                    <a href="#" class="consult-btn">Request Consultation</a>
+                </div>
+                <p class="product-price">$12,400</p>
+            </div>
+        </a>
+
+        <a href="#" class="product-card">
+            <div class="product-image">
+                <span class="scarcity-badge">Drop I</span>
+                <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=1000" alt="Watch">
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3>Heritage Skeleton</h3>
+                    <p class="product-category">Timepiece</p>
+                </div>
+                <p class="product-price">$18,900</p>
+            </div>
+        </a>
+
+        <a href="#" class="product-card">
+            <div class="product-image">
+                <span class="scarcity-badge">Drop I</span>
+                <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?q=80&w=1000" alt="Watch">
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3>Lunar Phase IV</h3>
+                    <p class="product-category">Timepiece</p>
+                </div>
+                <p class="product-price">$24,500</p>
+            </div>
+        </a>
+
+        <a href="#" class="product-card">
+            <div class="product-image">
+                <span class="scarcity-badge">Drop I</span>
+                <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=1000" alt="Bag">
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3>Vanguard Briefcase</h3>
+                    <p class="product-category">Leather</p>
+                </div>
+                <p class="product-price">$3,200</p>
+            </div>
+        </a>
+
+        <a href="#" class="product-card">
+            <div class="product-image">
+                <span class="scarcity-badge">Drop I</span>
+                <img src="https://images.unsplash.com/photo-1554342872-034a06541bad?q=80&w=1000" alt="Leather">
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3>Weekend Holdall</h3>
+                    <p class="product-category">Leather</p>
+                </div>
+                <p class="product-price">$4,100</p>
+            </div>
+        </a>
+
+        <a href="#" class="product-card">
+            <div class="product-image">
+                <span class="scarcity-badge">Drop I</span>
+                <img src="https://images.unsplash.com/photo-1614179662397-885f9ad66bd7?q=80&w=1000" alt="Leather">
+            </div>
+            <div class="product-info">
+                <div>
+                    <h3>Slim Folio</h3>
+                    <p class="product-category">Leather</p>
+                </div>
+                <p class="product-price">$1,200</p>
+            </div>
+        </a>
+    </section>
+
+    <section class="banner">
+        <h2>Curated in limited allocation. No restocks.</h2>
+        <p>Rarity is the ultimate luxury.</p>
+    </section>
+
+    <section class="private-client">
+        <div class="private-content">
+            <span class="section-label">Private Client Services</span>
+            <h2>Discreet sourcing. Personal consultation. Global delivery.</h2>
+            <p>
+                Our private clients receive direct access to limited allocations, rare acquisitions, and concierge-level assistance. 
+                Every piece is authenticated, insured, and delivered with complete discretion.
+            </p>
+        </div>
+    </section>
+
+    <section class="founder-note">
+        <div class="founder-content">
+            <span class="section-label">Founder’s Note</span>
+            <h2>Curated personally. Never mass selected.</h2>
+            <p>
+                OnlyAccessory was founded on a simple principle — rarity over volume. 
+                Every object featured here is selected for craftsmanship, integrity, and timeless design. 
+                We do not restock. We curate.
+            </p>
+            <p class="founder-signature">— Sanju Gupta</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">ONLYACCESSORY</div>
+                <p class="footer-desc">Curating rare objects for the modern collector. Worldwide white-glove delivery guaranteed.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Information</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Authentication</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Follow</h4>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ONLYACCESSORY. ALL RIGHTS RESERVED.</p>
+            <p>SITEMAP</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar Scroll Effect
+        window.onscroll = function() {
+            const nav = document.getElementById('navbar');
+            if (window.pageYOffset > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        };
+    </script>
+</body>
+</html>
